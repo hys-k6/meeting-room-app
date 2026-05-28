@@ -136,10 +136,10 @@ export default function ReservePage() {
 
             <div>
               <label className="mb-2 block font-bold">使用人数</label>
-              <input
+<input
   type="number"
   min="1"
-  max="100"
+  max={selectedRoom.capacity}
   className="w-full rounded-xl border border-slate-400 p-3"
   value={people}
   onChange={(e) => {
@@ -151,9 +151,18 @@ export default function ReservePage() {
     }
 
     const numberValue = Number(value);
-    const fixedValue = Math.min(Math.max(numberValue, 1), 100);
 
-    setPeople(fixedValue);
+    if (numberValue < 1) {
+      setPeople(1);
+      return;
+    }
+
+    if (numberValue > selectedRoom.capacity) {
+      setPeople(selectedRoom.capacity);
+      return;
+    }
+
+    setPeople(numberValue);
   }}
 />
             </div>
