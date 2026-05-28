@@ -137,13 +137,25 @@ export default function ReservePage() {
             <div>
               <label className="mb-2 block font-bold">使用人数</label>
               <input
-                type="number"
-                min="1"
-                max={selectedRoom.capacity}
-                className="w-full rounded-xl border border-slate-400 p-3"
-                value={people}
-                onChange={(e) => setPeople(Number(e.target.value))}
-              />
+  type="number"
+  min="1"
+  max="100"
+  className="w-full rounded-xl border border-slate-400 p-3"
+  value={people}
+  onChange={(e) => {
+    const value = e.target.value;
+
+    if (value === "") {
+      setPeople(1);
+      return;
+    }
+
+    const numberValue = Number(value);
+    const fixedValue = Math.min(Math.max(numberValue, 1), 100);
+
+    setPeople(fixedValue);
+  }}
+/>
             </div>
           </div>
 

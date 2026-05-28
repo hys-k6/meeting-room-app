@@ -19,6 +19,10 @@ export default function Home() {
     setUserEmail("");
   };
 
+  const showLoginAlert = () => {
+    alert("予約するにはログインしてください。");
+  };
+
   return (
     <main className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-6">
       <div className="max-w-3xl text-center">
@@ -30,13 +34,13 @@ export default function Home() {
           会議室の空き状況確認、設備選択、人数設定、料金計算まで管理できます。
         </p>
 
-        {userName ? (
+        {userName && (
           <div className="mb-8 rounded-2xl bg-white/10 p-5 text-left">
             <p className="mb-2 font-bold text-blue-300">ログイン中</p>
             <p>名前：{userName}</p>
             <p>メール：{userEmail}</p>
           </div>
-        ) : null}
+        )}
 
         <div className="flex flex-wrap justify-center gap-4">
           {userName ? (
@@ -55,12 +59,21 @@ export default function Home() {
             </Link>
           )}
 
-          <Link
-            href="/reserve"
-            className="block rounded-xl bg-white px-8 py-4 font-bold text-black"
-          >
-            予約画面
-          </Link>
+          {userName ? (
+            <Link
+              href="/reserve"
+              className="block rounded-xl bg-white px-8 py-4 font-bold text-black"
+            >
+              予約画面
+            </Link>
+          ) : (
+            <button
+              onClick={showLoginAlert}
+              className="block rounded-xl bg-white px-8 py-4 font-bold text-black"
+            >
+              予約画面
+            </button>
+          )}
 
           <Link
             href="/history"
